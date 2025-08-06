@@ -42,11 +42,6 @@ export const Blog = () => {
 		);
 	}, [dispatch]);
 
-	useLayoutEffect(() => {
-		fetch('http://localhost:3001/posts')
-			.then((res) => res.json())
-			.then(console.log);
-	}, []);
 	return (
 		<AppColumn>
 			<Header />

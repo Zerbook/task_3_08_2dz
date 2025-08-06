@@ -29,4 +29,4 @@ npm i @hookform/resolvers
 
 http://localhost:5173
 
-"proxy": "http://localhost:3001",
+http://localhost:3001/posts

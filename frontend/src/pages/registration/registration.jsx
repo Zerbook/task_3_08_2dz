@@ -11,6 +11,7 @@ import { server } from '../../bff';
 import { setUser } from '../../actions';
 import { selectUserRole } from '../../selectors';
 import { ROLE } from '../../constants';
+import { request, buildUrl } from '../../utils';
 
 const regFormSchema = yup.object().shape({
 	login: yup
@@ -58,15 +59,17 @@ const RegistrationContainer = ({ className }) => {
 	useResetForm(reset);
 
 	const onSubmit = ({ login, password }) => {
-		server.register(login, password).then(({ error, res }) => {
-			if (error) {
-				setServerError(`Ошибка запроса: ${error}`);
-				return;
-			}
+		request(buildUrl('/posts'), 'POST', { login, password }).then(
+			({ error, user }) => {
+				if (error) {
+					setServerError(`Ошибка запроса: ${error}`);
+					return;
+				}
 
-			dispatch(setUser(res));
-			sessionStorage.setItem('userData', JSON.stringify(res));
-		});
+				dispatch(setUser(user));
+				sessionStorage.setItem('userData', JSON.stringify(user));
+			},
+		);
 	};
 
 	const formError =
