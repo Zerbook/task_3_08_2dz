@@ -1,14 +1,12 @@
-console.log(111);
-//"proxy": "http://localhost:3001",
-// const test = fetch('http://localhost:3001/posts').then((res) => res.json());
+import { buildUrl } from './src/utils/build-url.js';
+import { request } from './src/utils/request.js';
 
-// console.log('test', test);
+console.log(buildUrl('/register'));
 
-fetch('http://localhost:3001/posts')
-	.then((res) => res.json())
-	.then((data) => {
-		console.log('posts:', data.data.posts);
-	})
-	.catch((err) => {
-		console.error('Ошибка при получении постов:', err);
-	});
+const login = 'oleg';
+const password = '123456';
+
+request(buildUrl('/register'), 'POST', { login, password }).then(({ error, user }) => {
+	console.log('error', error);
+	console.log('user', user);
+});

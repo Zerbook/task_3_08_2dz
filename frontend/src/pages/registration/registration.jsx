@@ -7,11 +7,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { AuthFormError, Button, H2, Input } from '../../components';
 import { useResetForm } from '../../hooks';
 import styled from 'styled-components';
-import { server } from '../../bff';
 import { setUser } from '../../actions';
 import { selectUserRole } from '../../selectors';
 import { ROLE } from '../../constants';
-import { request, buildUrl } from '../../utils';
+import { request } from '../../utils/request.js';
 
 const regFormSchema = yup.object().shape({
 	login: yup
@@ -59,17 +58,15 @@ const RegistrationContainer = ({ className }) => {
 	useResetForm(reset);
 
 	const onSubmit = ({ login, password }) => {
-		request(buildUrl('/posts'), 'POST', { login, password }).then(
-			({ error, user }) => {
-				if (error) {
-					setServerError(`Ошибка запроса: ${error}`);
-					return;
-				}
+		request('/register', 'POST', { login, password }).then(({ error, user }) => {
+			if (error) {
+				setServerError(`Ошибка запроса: ${error}`);
+				return;
+			}
 
-				dispatch(setUser(user));
-				sessionStorage.setItem('userData', JSON.stringify(user));
-			},
-		);
+			dispatch(setUser(user));
+			sessionStorage.setItem('userData', JSON.stringify(user));
+		});
 	};
 
 	const formError =

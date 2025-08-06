@@ -2,11 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Icon } from '../../../../components';
 import { ROLE } from '../../../../constants';
-import {
-	selectUserRole,
-	selectUserLogin,
-	selectUserSession,
-} from '../../../../selectors';
+import { selectUserRole, selectUserLogin } from '../../../../selectors';
 import { logout } from '../../../../actions/logout';
 import { checkAccess } from '../../../../utils';
 import styled from 'styled-components';
@@ -27,10 +23,9 @@ const ControlPanelContainer = ({ className }) => {
 	const dispatch = useDispatch();
 	const roleId = useSelector(selectUserRole);
 	const login = useSelector(selectUserLogin);
-	const session = useSelector(selectUserSession);
 
 	const onLogout = () => {
-		dispatch(logout(session));
+		dispatch(logout());
 		sessionStorage.removeItem('userData');
 	};
 
