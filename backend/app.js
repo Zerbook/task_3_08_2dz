@@ -7,10 +7,10 @@ import cors from "cors";
 
 const port = 3001;
 const app = express();
-// app.use(cors());
+
 app.use(
   cors({
-    origin: "http://localhost:5173", // Указываем точный источник
+    origin: process.env.FRONTEND_HOST, // Указываем точный источник
     credentials: true, // Разрешаем отправку кук
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
@@ -22,7 +22,7 @@ app.use(express.json());
 
 app.use("/", routes);
 
-mongoose.connect(process.env.MONGODB_CONNECTION_STRING).then(() => {
+mongoose.connect(process.env.DB_CONNECTION_STRING).then(() => {
   app.listen(port, () => {
     console.log(`Server started on port ${port}`);
   });
