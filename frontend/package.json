@@ -10,7 +10,7 @@
 		"lint": "eslint .",
 		"preview": "vite preview",
 		"format": "prettier --write ./src",
-		"jsondb": "node serverdb.js"
+		"start": "vite"
 	},
 	"dependencies": {
 		"@hookform/resolvers": "^5.0.1",

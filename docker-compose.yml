@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  backend:
+    container_name: backend_dev
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+
+  frontend:
+    container_name: frontend_dev
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    command: npm run dev -- --host
+    depends_on:
+      - backend
